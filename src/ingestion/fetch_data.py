@@ -13,11 +13,15 @@ def get_tomorrows_date():
     end_of_day=datetime.combine(tomorrow.date(),time.max).isoformat()
     return end_of_day
 
-def fetch_call_logs():
+def fetch_call_logs(date_to=None):
+
+    if date_to is None:
+        date_to=get_tomorrows_date()
+
     endpoint = "/restapi/v1.0/account/~/call-log"
     queryParams = {
         'dateFrom': "2025-07-10T00:00:00.138Z",
-        'dateTo': "2025-07-10T23:59:59.138Z",
+        'dateTo': date_to,
         'type': 'Voice',
         'view': "Detailed",
         'perPage': perPage,

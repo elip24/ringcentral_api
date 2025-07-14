@@ -14,4 +14,4 @@ config=ConfigParser(interpolation=None)
 config_file_path = ROOT_PATH / "config.ini"
 config.read(config_file_path)
 api_creds = config["RingCentral"]
-
+json_file =ROOT_PATH / "output.json"
