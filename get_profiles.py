@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 
-start_url='https://www.gibsondunn.com/lawyer/abdel-baky-mahmoud/'
+start_url='https://www.gibsondunn.com/lawyer/cannon-michael-q/'
 
 def get_education(page):
     education_title = page.locator(":has-text('Education')")
@@ -16,7 +16,6 @@ def extract_each_profile(playwright):
     custom_headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
-        "X-Custom-Header": "MyValue"
     }
     context = browser.new_context(extra_http_headers=custom_headers)
     page=browser.new_page()
@@ -26,9 +25,12 @@ def extract_each_profile(playwright):
     phone=profile.locator("a.tel-number").inner_text()
     email_locator=profile.locator("a[href^='mailto:']:not([href*='?'])").first.get_attribute("href")
     email=email_locator.replace("mailto:","") if email_locator else None
+    locations = profile.locator("a[href*='/office/']")
+    count = locations.count()
+    locations = [locations.nth(i).inner_text() for i in range(count)]
     work_card=page.locator("a.card").get_attribute("href")
     education=get_education(page)
-    print(education)
+    
 
 with sync_playwright() as playwright:
     extract_each_profile(playwright)
