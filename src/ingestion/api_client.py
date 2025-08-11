@@ -1,6 +1,6 @@
 from ringcentral import SDK
 from ringcentral.http.api_exception import ApiException
-from src.config.settings import api_creds
+from ..config.settings import api_creds
 import json
 import logging
 
